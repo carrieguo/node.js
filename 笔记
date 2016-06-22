@@ -1,0 +1,75 @@
+Node中的javascript
+-全局对象（global）
+    __dirname   js文件所在的绝对路径
+    __firename  js文件的全目录
+-console
+    -console.log()
+    -console.info()
+    -console.error()
+    -console.warn()
+    1>log.txt 2>err.txt
+    1>log.txt 2>&1
+    统计一段代码的执行时间
+    -console.time()
+    -console.timeEnd()
+    eg:
+    console.time('test');
+    for(var i=0;i<1000000;i++){}
+    console.timeEnd('test');
+-process 输出操作函数
+    -process.stdout --> standard output
+    -process.stderr --> standard error
+    -process.stdin 读取用户的键盘输入
+    eg:
+    process.stdin.setEncoding('utf-8');
+    第一种方法.
+    process.stdin.on('data',function(data){
+        console.log(data);
+    });
+    第二种方法。
+    process.stdin.on('readable',function(){
+        var data = process.stdin.read();
+        console.log(data);
+    });
+    -process.cwd() 输出当前所在目录 current working dir
+    -process.on
+        -exit 中断前执行函数
+        eg:
+        process.on('exit',function(){
+            console.log('program will exit.');
+        });
+        -SIGINT --> signal interrupted
+        eg:
+        process.on('SIGINT',function(){
+            console.log('program has a sigint.');
+        });
+    -process.argv()
+        是一个数组，封装了cmd里输入的内容。获取执行node命令时执行的命令。
+
+
+模块和包
+    模块：一个实现某些特定功能的文件，以实现模块化编程。
+    -通过 require(模块名) 引入模块
+    -模块中的功能（如：变量、函数）通过赋给 exports 对象的某个属性提供给调用者使用
+    包：包是一个文件夹，它将模块封装起来，用于发布、更新、依赖管理和版本控制
+    -通过 package.json 来描述包的信息：入口文件，依赖的外部包等等
+    -通过 npm install 命令来安装包
+
+文件相关操作
+    -fs
+        var fs = require('fs')
+        fs.readFile(filepath,function(err,data){});
+        fs.readFileSync('global.js','utf-8');
+    -path
+        require('path')
+        path.sep                //sep->seperator
+        path.extname('文件名')   //获取文件后缀名
+
+
+Node Http Server
+
+require('http')
+    -var server = http.createServer(cb);
+    -server.listen(端口号);
+require('url')
+    -parse
